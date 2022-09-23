@@ -1,4 +1,5 @@
-import org.json.simple.JsonObject;
+import org.json.simple.JsonObject; 
+import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -21,9 +22,11 @@ class StudentForm extends JFrame implements ActionListener{
 
     JRadioButton MaleButton, FemaleButton;
 
-    ButtonGroup Group1;
+    JOptionPane MessagePanel;
 
-    public StudentForm(){
+    ButtonGroup Group1;  // for Male & Female Button
+
+    public StudentForm(){   //Constructor
 
         setSize(300, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,6 +50,8 @@ class StudentForm extends JFrame implements ActionListener{
         MaleButton=new JRadioButton("Male");
         FemaleButton=new JRadioButton("Female");
 
+        MessagePanel=new JOptionPane();
+
         Group1 = new ButtonGroup();
 
         add(LabelName);
@@ -69,24 +74,25 @@ class StudentForm extends JFrame implements ActionListener{
         SaveButton.addActionListener(this);
         PrintButton.addActionListener(this);
         setVisible(true);
-        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Writer writer;
+        Writer writer;  // For JSON
         JsonObject Object1 = new JsonObject();
+
         Object1.put("Name", Name.getText());
         Object1.put("RollNo: ", RollNO.getText());
         Object1.put("Batch: ", Batch.getText());
         Object1.put("Section: ", Section.getText());
-        if(MaleButton.isSelected()) {
+
+        if(MaleButton.isSelected()) {       // When Male Button's Selected
             Object1.put("Gender: ", MaleButton.getText());
-        } else {
+        } else {                            //else Female Button's Selected
             Object1.put("Gender: ", FemaleButton.getText());
         }
 
-        if(e.getSource()==SaveButton) {
+        if(e.getSource()==SaveButton) {     // when save button is selected
             try {
                 writer = new FileWriter("Task.json");
                 writer.write(Object1.toString());
@@ -103,20 +109,28 @@ class StudentForm extends JFrame implements ActionListener{
                 }
 
                 writer.close();
+                
+                MessagePanel.showMessageDialog(null, "Details Saved");
+                //shows message that details are saved 
             } catch (Exception a) {
                 a.printStackTrace();
             }
+
         }
-        else if(e.getSource()==PrintButton) {
+        else if(e.getSource()==PrintButton) {   // when Print button is selected
             
-            JFrame F2=new JFrame();
+            this.dispose();
+
+            JFrame F2=new JFrame();     // will open new frame to display details
             F2.setSize(300,300);
             F2.setVisible(true);
             F2.setLayout(new FlowLayout(FlowLayout.LEFT));
             
+            
 
             F2.add(LabelName);
             LabelName = new JLabel(Name.getText());
+           
             F2.add(LabelName);
             F2.add(LabelRollNo);
             LabelRollNo = new JLabel(RollNO.getText());
@@ -136,7 +150,9 @@ class StudentForm extends JFrame implements ActionListener{
                 LabelGender=new JLabel("Female");
             }
             F2.add(LabelGender);
+            F2.setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
+        
     }
 }
 
