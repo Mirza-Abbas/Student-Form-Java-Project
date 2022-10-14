@@ -3,6 +3,7 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\Muhammad Abbas\\Downloads\\Compressed\\json-simple-2.1.2.jar"
+        "c:\\Users\\Muhammad Abbas\\Downloads\\Compressed\\json-simple-2.1.2.jar",
+        "c:\\Users\\Muhammad Abbas\\Downloads\\Compressed\\mysql-connector-java-8.0.30.jar"
     ]
 }
